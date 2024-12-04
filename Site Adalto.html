@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Code Breaker</title>
+    <style>
+        /* Estilo CSS */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: radial-gradient(circle, #141e30, #243b55);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        #menu-lateral {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 220px;
+            height: 100%;
+            background: #1c2833;
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+        }
+
+        #menu-lateral h2 {
+            color: #f1c40f;
+            text-align: center;
+        }
+
+        #menu-lateral ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        #menu-lateral ul li {
+            margin: 10px 0;
+        }
+
+        #menu-lateral ul li button {
+            background: #2980b9;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        #menu-lateral ul li button:hover {
+            background: #3498db;
+        }
+
+        #menu-lateral .remove-music {
+            background: #e74c3c;
+        }
+
+        #menu-lateral .remove-music:hover {
+            background: #c0392b;
+        }
+
+        .container {
+            margin: auto;
+            max-width: 500px;
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        input,
+        button {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+
+        input {
+            background: #ecf0f1;
+            color: #2c3e50;
+        }
+
+        button {
+            background: #e74c3c;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #c0392b;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #logo {
+            margin: 20px 0;
+        }
+
+        #logo img {
+            max-width: 150px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        footer {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+            margin-top: auto;
+            padding: 10px 0;
+            background: #1c2833;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Menu Lateral -->
+    <div id="menu-lateral">
+        <h2>Escolha sua Música</h2>
+        <ul>
+            <li><button
+                    onclick="tocarMusica('https://www.bensound.com/bensound-music/bensound-happiness.mp3')">Happiness</button>
+            </li>
+            <li><button
+                    onclick="tocarMusica('https://www.bensound.com/bensound-music/bensound-energy.mp3')">Energy</button>
+            </li>
+            <li><button
+                    onclick="tocarMusica('https://www.bensound.com/bensound-music/bensound-dreams.mp3')">Dreams</button>
+            </li>
+            <li><button
+                    onclick="tocarMusica('https://www.bensound.com/bensound-music/bensound-summer.mp3')">Summer</button>
+            </li>
+            <li><button onclick="tocarMusica('https://www.bensound.com/bensound-music/bensound-jazzyfrenchy.mp3')">Jazzy
+                    Frenchy</button></li>
+            <li><button onclick="tocarMusica('https://www.bensound.com/bensound-music/bensound-littleidea.mp3')">Little
+                    Idea</button></li>
+            <li><button
+                    onclick="tocarMusica('https://www.bensound.com/bensound-music/bensound-memories.mp3')">Memories</button>
+            </li>
+            <li><button onclick="tocarMusica('https://www.bensound.com/bensound-music/bensound-retrosoul.mp3')">Retro
+                    Soul</button></li>
+            <li><button
+                    onclick="tocarMusica('https://www.bensound.com/bensound-music/bensound-sunny.mp3')">Sunny</button>
+            </li>
+            <li><button onclick="tocarMusica('https://www.bensound.com/bensound-music/bensound-funkyelement.mp3')">Funky
+                    Element</button></li>
+        </ul>
+        <button class="remove-music" onclick="pararMusica()">Remover Música</button>
+    </div>
+
+    <!-- Logo -->
+    <div id="logo">
+        <img src="https://via.placeholder.com/150x50.png?text=Master+Code+Breaker" alt="Master Code Breaker Logo">
+    </div>
+
+    <!-- Cadastro -->
+    <div id="cadastro" class="container">
+        <h1>Cadastro</h1>
+        <input type="text" id="nome" placeholder="Digite seu nome">
+        <input type="text" id="serie" placeholder="Digite sua série">
+        <input type="number" id="idade" placeholder="Digite sua idade">
+        <button onclick="iniciarJogo()">Iniciar Jogo</button>
+    </div>
+
+    <!-- Jogo -->
+    <div id="jogo" class="container hidden">
+        <h1>Minijogo de Senha</h1>
+        <p id="charada">Digite a senha para desbloquear!</p>
+        <input type="number" id="senha" placeholder="Digite a senha">
+        <button onclick="verificarSenha()">Tentar</button>
+    </div>
+
+    <!-- Sucesso -->
+    <div id="sucesso" class="container hidden">
+        <h1>Parabéns, <span id="nome-usuario"></span>!</h1>
+        <p>Você acabou de desbloquear a senha!</p>
+        <button onclick="recomecarJogo()">Recomeçar</button>
+        <button onclick="voltarInicio()">Voltar ao Início</button>
+    </div>
+
+    <!-- Rodapé -->
+    <footer>
+        Atenciosamente, Sala 1ºB
+    </footer>
+
+    <script>
+        // JavaScript para o funcionamento do site
+        const senhaCorreta = "25122024";
+        const charadas = [
+            "A senha é uma data muito especial para celebrar com amigos e família.",
+            "Os números somam 18.",
+            "O mês tem um feriado bem conhecido no dia 25.",
+            "Essa data tem um grande significado para muitas pessoas no mundo todo.",
+            "Você costuma trocar presentes nesse dia!"
+        ];
+        let tentativas = 0;
+        let audio = null;
+
+        function iniciarJogo() {
+            const nome = document.getElementById("nome").value;
+            const serie = document.getElementById("serie").value;
+            const idade = document.getElementById("idade").value;
+
+            if (nome && serie && idade) {
+                document.getElementById("cadastro").classList.add("hidden");
+                document.getElementById("jogo").classList.remove("hidden");
+            } else {
+                alert("Por favor, preencha todos os campos!");
+            }
+        }
+
+        function verificarSenha() {
+            const senha = document.getElementById("senha").value;
+
+            if (senha === senhaCorreta) {
+                document.getElementById("jogo").classList.add("hidden");
+                document.getElementById("sucesso").classList.remove("hidden");
+                document.getElementById("nome-usuario").textContent = document.getElementById("nome").value;
+            } else {
+                document.getElementById("charada").textContent = charadas[tentativas % charadas.length];
+                tentativas++;
+            }
+        }
+
+        function recomecarJogo() {
+            document.getElementById("jogo").classList.remove("hidden");
+            document.getElementById("sucesso").classList.add("hidden");
+            document.getElementById("senha").value = "";
+            document.getElementById("charada").textContent = "Digite a senha para desbloquear!";
+        }
+
+        function voltarInicio() {
+            document.getElementById("cadastro").classList.remove("hidden");
+            document.getElementById("jogo").classList.add("hidden");
+            document.getElementById("sucesso").classList.add("hidden");
+            document.getElementById("nome").value = "";
+            document.getElementById("serie").value = "";
+            document.getElementById("idade").value = "";
+            document.getElementById("senha").value = "";
+            document.getElementById("charada").textContent = "Digite a senha para desbloquear!";
+        }
+
+        function tocarMusica(url) {
+            if (audio) {
+                audio.pause();
+            }
+            audio = new Audio(url);
+            audio.play();
+        }
+
+        function pararMusica() {
+            if (audio) {
+                audio.pause();
+                audio = null;
+            }
+        }
+    </script>
+</body>
+
+</html>
